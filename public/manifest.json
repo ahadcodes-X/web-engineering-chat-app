@@ -1,0 +1,21 @@
+{
+    "name": "Chatter",
+    "short_name": "Chatter",
+    "description": "A real-time PWA chat application.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0f0c29",
+    "theme_color": "#24243e",
+    "icons": [
+        {
+            "src": "/icons/icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

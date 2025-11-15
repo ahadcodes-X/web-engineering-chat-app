@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatter - Login</title>
+    
+    <link rel="stylesheet" href="style.css?v=2.6"> 
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    
+    <div class="aurora-background"></div>
+
+    <div id="tsparticlesfullpage"></div>
+
+    <div class="login-container">
+        
+        <h1 class="app-title">Chatter</h1>
+
+        <div class="form-wrapper-outer">
+            <div class="form-wrapper-inner">
+
+                <form id="login-form" class="form-step">
+                    <h2 id="form-title-login">Login</h2>
+                    
+                    <div class="input-group">
+                        <input type="text" id="username-login" placeholder="Username" required autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password-login" placeholder="Password" required autocomplete="off">
+                    </div>
+                    
+                    <p id="form-error-login" class="form-error-text"></p> 
+                    
+                    <button type="submit" id="submit-button-login" class="liquid-glass-btn">
+                        <div class="shadow-overlay"></div>
+                        <div class="filter-overlay"></div>
+                        <span class="btn-text">Login</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+
+                <form id="register-form" class="form-step">
+                    <h2 id="form-title-register">Register</h2>
+                    
+                    <div class="input-group">
+                        <input type="text" id="username-register" placeholder="Username" required autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password-register" placeholder="Password" required autocomplete="off">
+                    </div>
+                    
+                    <p id="form-error-register" class="form-error-text"></p> 
+                    
+                    <button type="submit" id="submit-button-register" class="liquid-glass-btn">
+                        <div class="shadow-overlay"></div>
+                        <div class="filter-overlay"></div>
+                        <span class="btn-text">Register</span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+
+            </div>
+        </div>
+        
+        <p id="toggle-text">
+            No account? <a href="#" id="toggle-link-register">Register here</a>
+        </p>
+    </div>
+    <svg class="hidden-svg">
+        <defs>
+            <filter id="container-glass" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
+                <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence" />
+                <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
+                <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="70" xChannelSelector="R" yChannelSelector="B" result="displaced" />
+                <feGaussianBlur in="displaced" stdDeviation="4" result="finalBlur" />
+                <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+            </filter>
+        </defs>
+    </svg>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim@2.12.0/tsparticles.slim.min.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

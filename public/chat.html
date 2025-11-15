@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatter</title>
+    <link rel="stylesheet" href="style.css?v=2.8"> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="aurora-background"></div>
+    <div class="chat-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Friends</h2>
+                <button id="requests-button">Requests (0)</button>
+            </div>
+                        
+            <div class="search-container">
+                <input type="text" id="user-search-input" placeholder="Find users...">
+                <div id="search-results" class="search-results"></div>
+            </div>
+
+            <ul id="friend-list"></ul>
+            
+            <div class="sidebar-footer">
+                <button id="logout-button" class="logout-btn">Logout</button>
+            </div>
+        </aside>
+
+        <main class="chat-window">
+            <div class="chat-header">
+                <h3>Chatting with: <span id="chatting-with">No one</span></h3>
+            </div>
+            <div id="messages" class="message-area">
+                <div class="message system">Welcome! Select a friend to start chatting.</div>
+            </div>
+                        
+            <p id="typing-indicator"></p>
+                        
+            <form id="chat-form" class="chat-form">
+                <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off" required>
+                <button type="submit" class="liquid-glass-btn">
+                    <div class="shadow-overlay"></div>
+                    <div class="filter-overlay"></div>
+                    <span class="btn-text">Send</span>
+                </button>
+            </form>
+        </main>
+    </div>
+
+    <div id="requests-modal" class="modal-backdrop" style="display: none;">
+        <div class="modal-content">
+            <h2>Friend Requests</h2>
+            <ul id="requests-list"></ul>
+            <button id="close-modal-button">Close</button>
+        </div>
+    </div>
+
+    <svg class="hidden-svg">
+        <defs>
+            <filter id="container-glass" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
+                <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence" />
+                <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise" />
+                <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="70" xChannelSelector="R" yChannelSelector="B" result="displaced" />
+                <feGaussianBlur in="displaced" stdDeviation="4" result="finalBlur" />
+                <feComposite in="finalBlur" in2="finalBlur" operator="over" />
+            </filter>
+        </defs>
+    </svg>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
