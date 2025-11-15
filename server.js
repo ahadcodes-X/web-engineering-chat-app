@@ -1,14 +1,12 @@
-// --- IMPORTS ---
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const jwt =require('jsonwebtoken');
 const cors = require('cors');
 const path = require('path');
 
-// --- INITIALIZE APP ---
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -18,17 +16,14 @@ const io = new Server(server, {
     }
 });
 
-// --- CONFIGURATION ---
 const PORT = 3007;
 const MONGO_URI = "mongodb+srv://ahadmakes_db_user:TntbwaLpabV2IuwV@cluster0.pfdbjga.mongodb.net/Chatly?retryWrites=true&w=majority";
 const JWT_SECRET = 'your_super_secret_key_12345';
 
-// --- MIDDLEWARE ---
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-// --- DATABASE CONNECTION ---
 mongoose.connect(MONGO_URI)
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => {
@@ -36,7 +31,6 @@ mongoose.connect(MONGO_URI)
     process.exit(1);
 });
 
-// --- DATABASE SCHEMAS ---
 const UserSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true, trim: true, lowercase: true },
     passwordHash: { type: String, required: true },
@@ -62,7 +56,6 @@ const MessageSchema = new mongoose.Schema({
 
 const Message = mongoose.model('Message', MessageSchema);
 
-// --- AUTH MIDDLEWARE ---
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -74,10 +67,6 @@ const verifyToken = (req, res, next) => {
         next();
     });
 };
-
-// ======================
-// AUTH ROUTES
-// ======================
 
 app.post('/api/register', async (req, res) => {
     try {
@@ -133,10 +122,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// ======================
-// FRIEND SYSTEM ROUTES
-// ======================
-const onlineUsers = {}; // { username: socketId }
+const onlineUsers = {};
 
 app.get('/api/users/search', verifyToken, async (req, res) => {
     try {
@@ -273,13 +259,9 @@ app.post('/api/friends/reject', verifyToken, async (req, res) => {
     }
 });
 
-// ======================
-// SOCKET.IO EVENTS
-// ======================
 io.on('connection', (socket) => {
     console.log(`⚡ User connected: ${socket.id}`);
 
-    // JOIN WITH TOKEN
     socket.on('join', async (token) => {
         try {
             const payload = jwt.verify(token, JWT_SECRET);
@@ -299,7 +281,6 @@ io.on('connection', (socket) => {
         }
     });
 
-    // PRIVATE MESSAGE
     socket.on('private_message', async ({ to, message }) => {
         try {
             const from = socket.username;
@@ -318,7 +299,6 @@ io.on('connection', (socket) => {
         }
     });
 
-    // GET CHAT HISTORY
     socket.on('get_chat_history', async ({ withUser }) => {
         try {
             const messages = await Message.find({
@@ -335,20 +315,18 @@ io.on('connection', (socket) => {
         }
     });
 
-    // TYPING
     socket.on('typing', ({ to }) => {
         const targetSocketId = onlineUsers[to];
         if (targetSocketId)
             io.to(targetSocketId).emit('user_typing', { from: socket.username });
     });
 
-    socket.on('stop_typing', ({ to }) => {
+    socket.on('stop_typing', ({ to })s => {
         const targetSocketId = onlineUsers[to];
         if (targetSocketId)
             io.to(targetSocketId).emit('user_stop_typing', { from: socket.username });
     });
 
-    // DISCONNECT
     socket.on('disconnect', () => {
         if (socket.username) {
             delete onlineUsers[socket.username];
@@ -359,9 +337,6 @@ io.on('connection', (socket) => {
     });
 });
 
-// ======================
-// START SERVER
-// ======================
 server.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`   Now accessible on your network!`);
