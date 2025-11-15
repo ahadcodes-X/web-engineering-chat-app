@@ -3,6 +3,10 @@
 A real-time chat application built for a Web Engineering class project. Users can register, log in, search for other users, send friend requests, and chat in real-time.
 
 
+
+[Image of the chat application user interface]
+
+
 ## 🚀 Features
 
 * **User Authentication:** Secure user registration and login using JWT (JSON Web Tokens) and password hashing with bcrypt.
@@ -21,7 +25,7 @@ A real-time chat application built for a Web Engineering class project. Users ca
 * **[MongoDB](https://www.mongodb.com/)** - NoSQL database
 * **[Mongoose](https://mongoosejs.com/)** - Object Data Modeling (ODM) library for MongoDB
 * **[JSON Web Token (JWT)](https://jwt.io/)** - For secure user authorization
-
+* **[bcrypt.js](https://www.npmjs.com/package/bcryptjs)** - For password hashing
 
 ### Frontend
 * **HTML5**
@@ -60,7 +64,7 @@ You must have [Node.js](https://nodejs.org/en/download/) and [npm](https://www.n
     * Add the following to it (replacing with your values):
 
     ```
-    MONGO_URI="mongodb+srv://ahadms_db_user:TntbwaLpabV2IuwV@cluster0.pfdbjga.mongodb.net/Chatly?retryWrites=true&w=majority"
+    MONGO_URI="mongodb+srv://ahadmakes_db_user:TntbwaLpabV2IuwV@cluster0.pfdbjga.mongodb.net/Chatly?retryWrites=true&w=majority"
     JWT_SECRET="your_super_secret_key_12345"
     ```
     * **IMPORTANT:** You must add `.env` to your `.gitignore` file so you don't push your secret database keys to GitHub!
