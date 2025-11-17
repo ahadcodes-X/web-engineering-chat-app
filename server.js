@@ -17,6 +17,7 @@ const io = new Server(server, {
 });
 
 const PORT = 3007;
+// This is your public, online DB
 const MONGO_URI = "mongodb+srv://ahadmakes_db_user:TntbwaLpabV2IuwV@cluster0.pfdbjga.mongodb.net/Chatly?retryWrites=true&w=majority";
 const JWT_SECRET = 'your_super_secret_key_12345';
 
@@ -321,7 +322,7 @@ io.on('connection', (socket) => {
             io.to(targetSocketId).emit('user_typing', { from: socket.username });
     });
 
-    socket.on('stop_typing', ({ to })s => {
+    socket.on('stop_typing', ({ to }) => {
         const targetSocketId = onlineUsers[to];
         if (targetSocketId)
             io.to(targetSocketId).emit('user_stop_typing', { from: socket.username });

@@ -4,7 +4,7 @@ A real-time chat application built for a Web Engineering class project. Users ca
 
 
 
-[Image of the chat application user interface]
+
 
 
 ## 🚀 Features
